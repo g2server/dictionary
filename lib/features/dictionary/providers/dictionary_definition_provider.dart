@@ -1,7 +1,7 @@
 import 'package:dictionary/features/dictionary/data/dictionary_repository.dart';
 import 'package:dictionary/features/dictionary/domain/word_definition.dart';
-import 'package:dictionary/providers/dictionary_repository_provider.dart';
-import 'package:dictionary/providers/dictionary_search_text_provider.dart';
+import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
+import 'package:dictionary/features/dictionary/providers/dictionary_search_text_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dictionary_definition_provider.g.dart';

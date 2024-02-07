@@ -1,7 +1,8 @@
+import 'package:dictionary/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'dictionary_search_text_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class DictionarySearchText extends _$DictionarySearchText {
   @override
   String build() {
@@ -9,6 +10,7 @@ class DictionarySearchText extends _$DictionarySearchText {
   }
 
   void updateText(String text) {
+    logger.d('dictionarySearchTextProvider updateText: $text');
     state = text;
   }
 }

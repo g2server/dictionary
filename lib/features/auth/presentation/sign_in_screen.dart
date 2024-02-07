@@ -1,6 +1,6 @@
 import 'package:dictionary/features/auth/domain/app_user.dart';
-import 'package:dictionary/providers/auth_repository_provider.dart';
-import 'package:dictionary/providers/auth_sign_in_screen_controller_provider.dart';
+import 'package:dictionary/features/auth/providers/auth_repository_provider.dart';
+import 'package:dictionary/features/auth/providers/auth_sign_in_screen_controller_provider.dart';
 import 'package:dictionary/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
