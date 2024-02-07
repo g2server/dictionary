@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:dictionary/app.dart';
+import 'package:dictionary/features/dictionary/data/mock_dictionary_repository.dart';
+import 'package:dictionary/providers/dictionary_repository_provider.dart';
 import 'package:dictionary/shared/logging/pretty_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,10 +24,15 @@ void main() async {
       FlutterError.presentError(details);
       logger.e('FlutterError.onError: ${details.exceptionAsString()}');
     };
+    var dictionaryRepository = MockDictionaryRepository();
+    await dictionaryRepository.init();
 
     runApp(
-      const ProviderScope(
-        child: MyApp(),
+      ProviderScope(
+        overrides: [
+          dictionaryRepositoryProvider.overrideWithValue(dictionaryRepository)
+        ],
+        child: const MyApp(),
       ),
     );
   }, (error, stackTrace) {

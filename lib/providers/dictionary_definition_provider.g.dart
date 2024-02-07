@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sign_in_screen_controller_provider.dart';
+part of 'dictionary_definition_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$signInScreenControllerHash() =>
-    r'd9968210b8ab26eb7fb6ea1aab8e36092d334b57';
+String _$dictionaryDefinitionHash() =>
+    r'bb886739ec7f732ee20776ada59e20d0cb1a9272';
 
-/// See also [SignInScreenController].
-@ProviderFor(SignInScreenController)
-final signInScreenControllerProvider =
-    AutoDisposeAsyncNotifierProvider<SignInScreenController, void>.internal(
-  SignInScreenController.new,
-  name: r'signInScreenControllerProvider',
+/// See also [dictionaryDefinition].
+@ProviderFor(dictionaryDefinition)
+final dictionaryDefinitionProvider =
+    AutoDisposeFutureProvider<WordDefinition?>.internal(
+  dictionaryDefinition,
+  name: r'dictionaryDefinitionProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$signInScreenControllerHash,
+      : _$dictionaryDefinitionHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SignInScreenController = AutoDisposeAsyncNotifier<void>;
+typedef DictionaryDefinitionRef = AutoDisposeFutureProviderRef<WordDefinition?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
