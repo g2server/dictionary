@@ -7,8 +7,6 @@ part 'auth_repository_provider.g.dart';
 
 @riverpod
 AuthRepository authRepository(AuthRepositoryRef ref) {
-  //final auth = FakeAuthRepository();
-  final auth = SupabaseRepository();
-  ref.onDispose(() => auth.dispose());
-  return auth;
+  // note: this is being eagerly initialized in main
+  throw UnimplementedError();
 }

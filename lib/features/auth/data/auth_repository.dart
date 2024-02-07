@@ -9,4 +9,8 @@ abstract class AuthRepository {
   BehaviorSubject<AppUser?> getStream();
 
   AppUser? getUser();
+
+  void dispose();
+
+  Future<void> init();
 }

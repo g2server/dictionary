@@ -31,7 +31,13 @@ class FakeAuthRepository extends AuthRepository {
     return _authState.value;
   }
 
-  void dispose() {
-    _authState.close();
+  @override
+  void dispose() async {
+    await _authState.close();
+  }
+
+  @override
+  Future<void> init() {
+    return Future.value(null);
   }
 }
