@@ -1,0 +1,59 @@
+import 'package:dictionary/features/auth/data/auth_repository.dart';
+import 'package:dictionary/features/auth/domain/app_user.dart';
+import 'package:dictionary/main.dart';
+import 'package:dictionary/shared/constants.dart';
+import 'package:rxdart/src/subjects/behavior_subject.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+class SupabaseRepository extends AuthRepository {
+  final _supabase = Supabase.instance.client;
+  final _authState = BehaviorSubject<AppUser?>.seeded(null);
+
+  SupabaseRepository() {
+    Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+      if (data.event == AuthChangeEvent.initialSession) {
+        _authState.value = null;
+      } else if (data.event == AuthChangeEvent.signedIn &&
+          data.session != null) {
+        _authState.value = AppUser(
+          email: data.session?.user.email ?? '',
+          uid: data.session?.user.id ?? '',
+        );
+      } else if (data.event == AuthChangeEvent.signedOut) {
+        _authState.value = null;
+      } else {
+        logger.i('SupabaseRepository, onAuthStateChange, ${data.event}');
+      }
+    });
+  }
+
+  @override
+  BehaviorSubject<AppUser?> getStream() {
+    return _authState;
+  }
+
+  @override
+  AppUser? getUser() {
+    return _authState.value;
+  }
+
+  @override
+  Future<void> signIn(AppUser user) async {
+    await _supabase.auth.signInWithPassword(
+      email: user.email,
+      password: user.password!,
+    );
+    return Future.value(null);
+  }
+
+  @override
+  Future<void> signOut() async {
+    await _supabase.auth.signOut();
+    //_authState.value = null;
+    return Future.value(null);
+  }
+
+  void dispose() {
+    _authState.close();
+  }
+}

@@ -8,6 +8,7 @@ import 'package:dictionary/shared/logging/pretty_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 //var logger = BasicLogger();
 var logger = PrettyLogger();
@@ -27,9 +28,12 @@ void main() async {
       logger.e('FlutterError.onError: ${details.exceptionAsString()}');
     };
 
-    await dotenv.load(fileName: "mock_env.env");
-    var secretApiKey = dotenv.env['SOME_SECRET_API_KEY'];
-    logger.i('SOME_SECRET_API_KEY: $secretApiKey');
+    await dotenv.load(fileName: "secrets.env");
+    var superbaseUrl = dotenv.env['SUPABASE_URL'];
+    var superbaseApiKey = dotenv.env['SUPABASE_URL_API_KEY'];
+
+    await Supabase.initialize(url: superbaseUrl!, anonKey: superbaseApiKey!);
+    logger.i('supabase initialized');
 
     //var dictionaryRepository = MockDictionaryRepository();
     var dictionaryRepository = DictionaryApiRepository();

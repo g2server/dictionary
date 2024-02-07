@@ -33,9 +33,12 @@ class SignInScreen extends ConsumerWidget {
                     ? null
                     : () async {
                         await ref.read(authRepositoryProvider).signIn(
-                            const AppUser(
+                              AppUser(
                                 uid: kAnonAppUserUid,
-                                email: kAnonAppUserEmail));
+                                email: kAnonAppUserEmail,
+                                password: kAnonAppUserPassword,
+                              ),
+                            );
                       },
                 child: state.isLoading
                     ? const CircularProgressIndicator()

@@ -19,6 +19,7 @@ dependencies:
   logger: ^2.0.2+1
   http: ^1.2.0
   flutter_dotenv: ^5.1.0
+  supabase_flutter: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +36,7 @@ dev_dependencies:
 flutter:
   assets:
     - mock_env.env
+    - secrets.env
 
   uses-material-design: true
 
