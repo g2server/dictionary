@@ -38,13 +38,13 @@ class DictionaryApiRepository extends DictionaryRepository {
       var json = jsonDecode(jsonText);
       var dictionaryApiNoResultsModel =
           DictionaryApiNoResultsModel.fromJson(json);
-      logger.d(
-          'getDefinition 404, parsed: ${dictionaryApiNoResultsModel.message}');
+      logger
+          .d('_parseAndMap404, parsed: ${dictionaryApiNoResultsModel.message}');
 
       return;
     } catch (e) {
       // This could indicate a change in the API response format, or a non-planned 404 response, eg server error.
-      logger.e('getDefinition 404, not parsed: ${e.toString()}');
+      logger.e('_parseAndMap404, not parsed: ${e.toString()}');
       throw Exception('No results could be found at this time');
     }
   }

@@ -38,7 +38,7 @@ dev_dependencies:
 flutter:
   assets:
     - mock_env.env
-    - secrets.env
+    #- secrets.env
 
   uses-material-design: true
 
