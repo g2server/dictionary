@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dictionary/app.dart';
+import 'package:dictionary/features/dictionary/data/dictionaryapi/dictionaryapi_repository.dart';
 import 'package:dictionary/features/dictionary/data/mock_dictionary_repository.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
 import 'package:dictionary/shared/logging/pretty_logger.dart';
@@ -24,7 +25,8 @@ void main() async {
       FlutterError.presentError(details);
       logger.e('FlutterError.onError: ${details.exceptionAsString()}');
     };
-    var dictionaryRepository = MockDictionaryRepository();
+    //var dictionaryRepository = MockDictionaryRepository();
+    var dictionaryRepository = DictionaryApiRepository();
     await dictionaryRepository.init();
 
     runApp(

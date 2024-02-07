@@ -1,3 +1,4 @@
+import 'package:dictionary/features/dictionary/presentation/word_meaning_card.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_definition_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,24 +24,8 @@ class WordDefinitions extends ConsumerWidget {
               return ListView.builder(
                 itemCount: value.meanings.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(value.meanings[index].partOfSpeach),
-                    subtitle: Builder(builder: (context) {
-                      List<Widget> children = [];
-                      for (var i = 0;
-                          i < value.meanings[index].partDefinitions.length;
-                          i++) {
-                        children.add(
-                          Text(
-                              '${i + 1}. ${value.meanings[index].partDefinitions[i]}'),
-                        );
-                      }
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: children,
-                      );
-                    }),
+                  return WordMeaningCard(
+                    wordMeaning: value.meanings[index],
                   );
                 },
               );

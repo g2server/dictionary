@@ -4,7 +4,7 @@ import 'package:dictionary/features/dictionary/domain/word_meaning.dart';
 
 class MockDictionaryRepository extends DictionaryRepository {
   @override
-  Future<WordDefinition> getDefinition(String searchText) {
+  Future<WordDefinition?> getDefinition(String searchText) {
     List<WordMeaning> meanings = [];
     for (int i = 0; i < 3; i++) {
       var word = WordMeaning(
