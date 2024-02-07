@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dictionary/app.dart';
 import 'package:dictionary/features/auth/data/fake_auth_repository.dart';
-import 'package:dictionary/features/auth/data/supabase_repository.dart';
+import 'package:dictionary/features/auth/data/supabase_auth_repository.dart';
 import 'package:dictionary/features/auth/providers/auth_repository_provider.dart';
 import 'package:dictionary/features/dictionary/data/dictionaryapi/dictionaryapi_repository.dart';
 import 'package:dictionary/features/dictionary/data/mock_dictionary_repository.dart';

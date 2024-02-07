@@ -5,11 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:rxdart/src/subjects/behavior_subject.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SupabaseRepository extends AuthRepository {
+class SupabaseAuthRepository extends AuthRepository {
   final _supabase = Supabase.instance.client;
   final _authState = BehaviorSubject<AppUser?>.seeded(null);
 
-  SupabaseRepository() {
+  SupabaseAuthRepository() {
     Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       if (data.event == AuthChangeEvent.initialSession) {
         _authState.value = null;
