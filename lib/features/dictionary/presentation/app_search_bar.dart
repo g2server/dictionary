@@ -21,6 +21,7 @@ class AppSearchBar extends ConsumerStatefulWidget
 class _AppSearchBarState extends ConsumerState<AppSearchBar> {
   final TextEditingController _controller = TextEditingController();
   late FocusNode _focusNode;
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -28,6 +29,13 @@ class _AppSearchBarState extends ConsumerState<AppSearchBar> {
     _focusNode.unfocus();
     logger.i('AppSearchBar initState');
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _focusNode.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -45,7 +53,19 @@ class _AppSearchBarState extends ConsumerState<AppSearchBar> {
                   child: TextFormField(
                     focusNode: _focusNode,
                     controller: _controller,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      if (_debounce?.isActive ?? false) {
+                        logger.i('debounce cancelled');
+                        _debounce!.cancel();
+                      }
+
+                      // Note. instead of hardcoding the debounce time, we could use a configuration value
+                      _debounce = Timer(const Duration(milliseconds: 1000), () {
+                        ref
+                            .read(dictionarySearchTextProvider.notifier)
+                            .updateText(_controller.value.text);
+                      });
+                    },
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
