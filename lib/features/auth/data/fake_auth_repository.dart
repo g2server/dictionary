@@ -14,10 +14,11 @@ class FakeAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<void> signIn(AppUser user) async {
+  Future<bool> signIn(AppUser user) async {
     logger.i('FakeAuthRepository, signIn()');
     //await Future.delayed(const Duration(seconds: 1));
     _authState.value = user;
+    return true;
   }
 
   @override

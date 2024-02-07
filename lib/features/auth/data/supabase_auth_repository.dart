@@ -38,12 +38,15 @@ class SupabaseAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<void> signIn(AppUser user) async {
-    await _supabase.auth.signInWithPassword(
+  Future<bool> signIn(AppUser user) async {
+    var response = await _supabase.auth.signInWithPassword(
       email: user.email,
       password: user.password!,
     );
-    return Future.value(null);
+    if (response.session == null) {
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 
   @override

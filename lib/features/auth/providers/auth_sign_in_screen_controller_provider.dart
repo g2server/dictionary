@@ -7,7 +7,9 @@ part 'auth_sign_in_screen_controller_provider.g.dart';
 @riverpod
 class AuthSignInScreenController extends _$AuthSignInScreenController {
   @override
-  FutureOr<void> build() {}
+  Future<void> build() {
+    return Future.value(null);
+  }
 
   Future<void> signIn(AppUser user) async {
     state = const AsyncLoading();
