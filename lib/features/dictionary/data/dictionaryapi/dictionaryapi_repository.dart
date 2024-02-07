@@ -12,49 +12,19 @@ class DictionaryApiRepository extends DictionaryRepository {
   Future<WordDefinition?> getDefinition(String searchText) async {
     // https://dictionaryapi.dev/
 
-    // TODO. sanitize url (and/or validate the format of the search text)
-    String url = 'https://api.dictionaryapi.dev/api/v2/entries/en/$searchText';
+    const baseUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+    final url = baseUrl + searchText.trim();
     logger.d('getDefinition, url: $url');
 
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
-      var dictionaryApiModel = DictionaryApiModel.fromJson(json[0]);
-
-      // TODO. create a dedicated mapping methdod.
-      List<WordMeaning> meanings = [];
-
-      for (Meanings meaning in dictionaryApiModel.meanings ?? []) {
-        List<String> definitions = [];
-
-        for (Definitions definition in meaning.definitions ?? []) {
-          definitions.add(definition.definition ?? 'unknown definition');
-        }
-
-        var wordMeaning = WordMeaning(
-          partOfSpeach: meaning.partOfSpeech ?? 'unknown part of speech',
-          partDefinitions: definitions,
-        );
-
-        meanings.add(wordMeaning);
-      }
-
-      return Future.value(WordDefinition(word: searchText, meanings: meanings));
+      var wordDefinition = _parseAndMap200(response.body, searchText);
+      return Future.value(wordDefinition);
     }
     if (response.statusCode == 404) {
-      try {
-        var json = jsonDecode(response.body);
-        var dictionaryApiNoResultsModel =
-            DictionaryApiNoResultsModel.fromJson(json);
-        logger.d(
-            'getDefinition 404, parsed: ${dictionaryApiNoResultsModel.message}');
-
-        return Future.value(null);
-      } catch (e) {
-        logger.e('getDefinition 404, not parsed: ${e.toString()}');
-        throw Exception('No results could be found at this time');
-      }
+      _parseAndMap404(response.body);
+      return Future.value(null);
     } else {
       logger.e(
           'getDefinition, non standard response code ${response.statusCode.toString()}');
@@ -63,8 +33,49 @@ class DictionaryApiRepository extends DictionaryRepository {
     }
   }
 
+  void _parseAndMap404(String jsonText) {
+    try {
+      var json = jsonDecode(jsonText);
+      var dictionaryApiNoResultsModel =
+          DictionaryApiNoResultsModel.fromJson(json);
+      logger.d(
+          'getDefinition 404, parsed: ${dictionaryApiNoResultsModel.message}');
+
+      return;
+    } catch (e) {
+      // This could indicate a change in the API response format, or a non-planned 404 response, eg server error.
+      logger.e('getDefinition 404, not parsed: ${e.toString()}');
+      throw Exception('No results could be found at this time');
+    }
+  }
+
+  WordDefinition _parseAndMap200(String jsonText, String word) {
+    var json = jsonDecode(jsonText);
+    var dictionaryApiModel = DictionaryApiModel.fromJson(json[0]);
+
+    List<WordMeaning> meanings = [];
+
+    for (Meanings meaning in dictionaryApiModel.meanings ?? []) {
+      List<String> definitions = [];
+
+      for (Definitions definition in meaning.definitions ?? []) {
+        definitions.add(definition.definition ?? 'unknown definition');
+      }
+
+      var wordMeaning = WordMeaning(
+        partOfSpeach: meaning.partOfSpeech ?? 'unknown part of speech',
+        partDefinitions: definitions,
+      );
+
+      meanings.add(wordMeaning);
+    }
+
+    return WordDefinition(word: word, meanings: meanings);
+  }
+
   @override
   Future<void> init() async {
+    // TODO. Could be used to check if the API is available.
     return Future.value();
   }
 }

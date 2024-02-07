@@ -54,16 +54,14 @@ class AppSearchBar extends HookConsumerWidget implements PreferredSizeWidget {
                   ),
                 ),
               ),
-              Builder(builder: (context) {
-                return IconButton(
-                  onPressed: () {
-                    ref
-                        .read(dictionarySearchTextProvider.notifier)
-                        .updateText(controller.value.text);
-                  },
-                  icon: const Icon(Icons.search),
-                );
-              }),
+              IconButton(
+                onPressed: () {
+                  ref
+                      .read(dictionarySearchTextProvider.notifier)
+                      .updateText(controller.value.text);
+                },
+                icon: const Icon(Icons.search),
+              ),
             ],
           ),
         ),
