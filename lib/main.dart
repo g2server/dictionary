@@ -6,6 +6,7 @@ import 'package:dictionary/features/dictionary/data/mock_dictionary_repository.d
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
 import 'package:dictionary/shared/logging/pretty_logger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //var logger = BasicLogger();
@@ -25,6 +26,11 @@ void main() async {
       FlutterError.presentError(details);
       logger.e('FlutterError.onError: ${details.exceptionAsString()}');
     };
+
+    await dotenv.load(fileName: "mock_env.env");
+    var secretApiKey = dotenv.env['SOME_SECRET_API_KEY'];
+    logger.i('SOME_SECRET_API_KEY: $secretApiKey');
+
     //var dictionaryRepository = MockDictionaryRepository();
     var dictionaryRepository = DictionaryApiRepository();
     await dictionaryRepository.init();

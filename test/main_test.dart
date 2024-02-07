@@ -1,5 +1,4 @@
 import 'package:dictionary/app.dart';
-import 'package:dictionary/features/auth/presentation/sign_in_screen.dart';
 import 'package:dictionary/features/dictionary/data/mock_dictionary_repository.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
