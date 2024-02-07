@@ -4,98 +4,80 @@ import 'package:dictionary/features/auth/providers/auth_repository_provider.dart
 import 'package:dictionary/features/dictionary/providers/dictionary_search_text_provider.dart';
 import 'package:dictionary/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AppSearchBar extends ConsumerStatefulWidget
-    implements PreferredSizeWidget {
+class AppSearchBar extends HookConsumerWidget implements PreferredSizeWidget {
   const AppSearchBar(this.title, {super.key});
   final String title;
 
   @override
-  ConsumerState<AppSearchBar> createState() => _AppSearchBarState();
-
-  @override
-  Size get preferredSize => const Size.fromHeight(130);
-}
-
-class _AppSearchBarState extends ConsumerState<AppSearchBar> {
-  final TextEditingController _controller = TextEditingController();
-  late FocusNode _focusNode;
-  Timer? _debounce;
-
-  @override
-  void initState() {
-    _focusNode = FocusNode();
-    _focusNode.unfocus();
-    logger.i('AppSearchBar initState');
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _focusNode.dispose();
-    _controller.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final focusNode = useFocusNode();
+    final controller = useTextEditingController();
+    focusNode.unfocus();
+    Timer? debounce;
     return AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    focusNode: _focusNode,
-                    controller: _controller,
-                    onChanged: (value) {
-                      if (_debounce?.isActive ?? false) {
-                        logger.i('debounce cancelled');
-                        _debounce!.cancel();
-                      }
+      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      title: Text(title),
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  focusNode: focusNode,
+                  controller: controller,
+                  onChanged: (value) {
+                    if (debounce?.isActive ?? false) {
+                      logger.i('debounce cancelled');
+                      debounce!.cancel();
+                    }
 
-                      // Note. instead of hardcoding the debounce time, we could use a configuration value
-                      _debounce = Timer(const Duration(milliseconds: 1000), () {
-                        ref
-                            .read(dictionarySearchTextProvider.notifier)
-                            .updateText(_controller.value.text);
-                      });
-                    },
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'Search',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                    // Note. instead of hardcoding the debounce time, we could use a configuration value
+                    debounce = Timer(const Duration(milliseconds: 1000), () {
+                      ref
+                          .read(dictionarySearchTextProvider.notifier)
+                          .updateText(controller.value.text);
+                    });
+                  },
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Search',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
-                Builder(builder: (context) {
-                  return IconButton(
-                    onPressed: () {
-                      ref
-                          .read(dictionarySearchTextProvider.notifier)
-                          .updateText(_controller.value.text);
-                    },
-                    icon: const Icon(Icons.search),
-                  );
-                }),
-              ],
-            ),
+              ),
+              Builder(builder: (context) {
+                return IconButton(
+                  onPressed: () {
+                    ref
+                        .read(dictionarySearchTextProvider.notifier)
+                        .updateText(controller.value.text);
+                  },
+                  icon: const Icon(Icons.search),
+                );
+              }),
+            ],
           ),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                ref.read(authRepositoryProvider).signOut();
-              },
-              icon: const Icon(Icons.logout))
-        ]);
+      ),
+      actions: [
+        IconButton(
+            onPressed: () {
+              ref.read(authRepositoryProvider).signOut();
+            },
+            icon: const Icon(Icons.logout))
+      ],
+    );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(130);
 }
