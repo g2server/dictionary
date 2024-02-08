@@ -7,16 +7,30 @@ part 'auth_sign_in_screen_controller_provider.g.dart';
 @riverpod
 class AuthSignInScreenController extends _$AuthSignInScreenController {
   @override
-  AsyncValue<bool?> build() {
-    return const AsyncData(null);
+  AsyncValue<AuthSignInScreenControllerState> build() {
+    return const AsyncData(AuthSignInScreenControllerState.initial);
   }
 
   Future<void> signIn(AppUser user) async {
     state = const AsyncLoading();
     final authRepository = ref.read(authRepositoryProvider);
     await Future.delayed(const Duration(seconds: 1));
-    state = await AsyncValue.guard<bool>(() {
-      return authRepository.signIn(user);
-    });
+
+    try {
+      var success = await authRepository.signIn(user);
+      if (success) {
+        state = const AsyncData(AuthSignInScreenControllerState.signInSuccess);
+      } else {
+        state = const AsyncData(AuthSignInScreenControllerState.noUserFound);
+      }
+    } catch (e, s) {
+      state = AsyncValue.error(e, s);
+    }
   }
+}
+
+enum AuthSignInScreenControllerState {
+  initial,
+  signInSuccess,
+  noUserFound,
 }

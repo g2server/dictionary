@@ -5,7 +5,7 @@ import 'package:dictionary/features/auth/data/fake_auth_repository.dart';
 import 'package:dictionary/features/auth/data/supabase_auth_repository.dart';
 import 'package:dictionary/features/auth/providers/auth_repository_provider.dart';
 import 'package:dictionary/features/dictionary/data/dictionaryapi/dictionaryapi_repository.dart';
-import 'package:dictionary/features/dictionary/data/mock_dictionary_repository.dart';
+import 'package:dictionary/features/dictionary/data/fake_dictionary_repository.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
 import 'package:dictionary/shared/logging/pretty_logger.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ void main() async {
       logger.e('FlutterError.onError: ${details.exceptionAsString()}');
     };
 
-    //var dictionaryRepository = MockDictionaryRepository();
+    //var dictionaryRepository = FakeDictionaryRepository();
     var dictionaryRepository = DictionaryApiRepository();
     await dictionaryRepository.init();
 
