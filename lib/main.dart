@@ -33,7 +33,7 @@ void main() async {
     var dictionaryRepository = DictionaryApiRepository();
     await dictionaryRepository.init();
 
-    //final auth = SupabaseRepository();
+    //final auth = SupabaseAuthRepository();
     final auth = FakeAuthRepository();
     await auth.init();
 

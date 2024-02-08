@@ -6,11 +6,54 @@ import 'package:rxdart/src/subjects/behavior_subject.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseAuthRepository extends AuthRepository {
-  final _supabase = Supabase.instance.client;
+  late SupabaseClient _supabaseClient;
   final _authState = BehaviorSubject<AppUser?>.seeded(null);
 
-  SupabaseAuthRepository() {
-    Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+  @override
+  BehaviorSubject<AppUser?> getStream() {
+    return _authState;
+  }
+
+  @override
+  AppUser? getUser() {
+    return _authState.value;
+  }
+
+  @override
+  Future<bool> signIn(AppUser user) async {
+    var response = await _supabaseClient.auth.signInWithPassword(
+      email: user.email,
+      password: user.password!,
+    );
+    if (response.session == null) {
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
+  @override
+  Future<void> signOut() async {
+    await _supabaseClient.auth.signOut();
+    //_authState.value = null;
+    return Future.value(null);
+  }
+
+  @override
+  void dispose() async {
+    await _authState.close();
+  }
+
+  @override
+  Future<void> init() async {
+    await dotenv.load(fileName: "dotenv/secrets.env");
+    var superbaseUrl = dotenv.env['SUPABASE_URL'];
+    var superbaseApiKey = dotenv.env['SUPABASE_URL_API_KEY'];
+    _supabaseClient = (await Supabase.initialize(
+            url: superbaseUrl!, anonKey: superbaseApiKey!))
+        .client;
+    logger.i('supabase initialized');
+
+    _supabaseClient.auth.onAuthStateChange.listen((data) {
       if (data.event == AuthChangeEvent.initialSession) {
         _authState.value = null;
       } else if (data.event == AuthChangeEvent.signedIn &&
@@ -25,48 +68,5 @@ class SupabaseAuthRepository extends AuthRepository {
         logger.i('SupabaseRepository, onAuthStateChange, ${data.event}');
       }
     });
-  }
-
-  @override
-  BehaviorSubject<AppUser?> getStream() {
-    return _authState;
-  }
-
-  @override
-  AppUser? getUser() {
-    return _authState.value;
-  }
-
-  @override
-  Future<bool> signIn(AppUser user) async {
-    var response = await _supabase.auth.signInWithPassword(
-      email: user.email,
-      password: user.password!,
-    );
-    if (response.session == null) {
-      return Future.value(false);
-    }
-    return Future.value(true);
-  }
-
-  @override
-  Future<void> signOut() async {
-    await _supabase.auth.signOut();
-    //_authState.value = null;
-    return Future.value(null);
-  }
-
-  @override
-  void dispose() async {
-    await _authState.close();
-  }
-
-  @override
-  Future<void> init() async {
-    await dotenv.load(fileName: "secrets.env");
-    var superbaseUrl = dotenv.env['SUPABASE_URL'];
-    var superbaseApiKey = dotenv.env['SUPABASE_URL_API_KEY'];
-    await Supabase.initialize(url: superbaseUrl!, anonKey: superbaseApiKey!);
-    logger.i('supabase initialized');
   }
 }
