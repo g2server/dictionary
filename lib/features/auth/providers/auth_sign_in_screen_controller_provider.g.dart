@@ -7,12 +7,12 @@ part of 'auth_sign_in_screen_controller_provider.dart';
 // **************************************************************************
 
 String _$authSignInScreenControllerHash() =>
-    r'61552b56f99a8b190d6dc69e2d1e3d480b564228';
+    r'59d19f45874fe96e5839fcca2c8eb73baded931f';
 
 /// See also [AuthSignInScreenController].
 @ProviderFor(AuthSignInScreenController)
-final authSignInScreenControllerProvider =
-    AutoDisposeAsyncNotifierProvider<AuthSignInScreenController, void>.internal(
+final authSignInScreenControllerProvider = AutoDisposeNotifierProvider<
+    AuthSignInScreenController, AsyncValue<bool?>>.internal(
   AuthSignInScreenController.new,
   name: r'authSignInScreenControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final authSignInScreenControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$AuthSignInScreenController = AutoDisposeAsyncNotifier<void>;
+typedef _$AuthSignInScreenController = AutoDisposeNotifier<AsyncValue<bool?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

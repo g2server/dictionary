@@ -17,6 +17,7 @@ class FakeAuthRepository extends AuthRepository {
   Future<bool> signIn(AppUser user) async {
     logger.i('FakeAuthRepository, signIn()');
     //await Future.delayed(const Duration(seconds: 1));
+    //return false;
     _authState.value = user;
     return true;
   }
