@@ -1,5 +1,8 @@
 import 'package:dictionary/features/auth/domain/app_user.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:rxdart/subjects.dart';
+
+class MockAuthRepository extends Mock implements AuthRepository {}
 
 abstract class AuthRepository {
   /// Signs out the current user.

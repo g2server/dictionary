@@ -13,7 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final AppLogger logger = BasicLogger();
 
-void main() async {
+void main() {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 

@@ -1,5 +1,6 @@
 import 'package:dictionary/features/auth/providers/auth_repository_provider.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_startup_controller_provider.g.dart';
@@ -19,5 +20,15 @@ class AppStartupController extends _$AppStartupController {
     await ref.watch(dictionaryRepositoryProvider.future);
     await ref.watch(authRepositoryProvider.future);
     //throw Exception('Error');
+  }
+}
+
+class MockLoadingAppStartupController extends _$AppStartupController
+    with Mock
+    implements AppStartupController {
+  @override
+  Future<void> build() async {
+    //state = const AsyncLoading();
+    //await Future.delayed(const Duration(seconds: 1));
   }
 }

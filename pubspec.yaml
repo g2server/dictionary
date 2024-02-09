@@ -22,6 +22,7 @@ dependencies:
   supabase_flutter: ^2.3.2
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.4.10
+  mocktail: ^1.0.3
 
 dev_dependencies:
   flutter_test:

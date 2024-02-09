@@ -33,7 +33,7 @@ class AppStartup extends ConsumerWidget {
               onPressed: () {
                 ref.invalidate(appStartupControllerProvider);
               },
-              child: const Text('Retry'),
+              child: Text('Retry (error: $error)'),
             ),
           );
         },
