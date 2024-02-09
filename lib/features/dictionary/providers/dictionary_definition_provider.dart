@@ -15,8 +15,9 @@ Future<WordDefinition?> dictionaryDefinition(
   if (searchText.isEmpty) {
     return Future.value(null);
   }
-  await Future<void>.delayed(const Duration(seconds: 1));
-  DictionaryRepository repo = ref.read(dictionaryRepositoryProvider);
+  //await Future<void>.delayed(const Duration(seconds: 1));
+  DictionaryRepository repo =
+      ref.watch(dictionaryRepositoryProvider).requireValue;
 
   var definition = await repo.getDefinition(searchText);
   return Future.value(definition);

@@ -1,11 +1,10 @@
-import 'package:dictionary/app.dart';
 import 'package:dictionary/features/auth/data/fake_auth_repository.dart';
 import 'package:dictionary/features/auth/domain/app_user.dart';
-import 'package:dictionary/features/auth/providers/auth_repository_provider.dart';
+import 'package:dictionary/features/auth/providers/auth_repository_bootstrap_provider.dart';
 import 'package:dictionary/features/auth/providers/auth_sign_in_screen_controller_provider.dart';
 import 'package:dictionary/features/dictionary/data/fake_dictionary_repository.dart';
-import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
-import 'package:dictionary/shared/logging/basic_logger.dart';
+import 'package:dictionary/features/dictionary/providers/dictionary_repository_bootstrap_provider.dart';
+import 'package:dictionary/features/startup/app_startup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,20 +16,19 @@ void main() {
     (tester) async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      var dictionaryRepo = FakeDictionaryRepository()..init();
-      var authRepo = FakeAuthRepository()..init();
-
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            dictionaryRepositoryProvider.overrideWithValue(
-              dictionaryRepo,
+            dictionaryRepositoryBootstrapProvider.overrideWithValue(
+              FakeDictionaryRepository(),
             ),
-            authRepositoryProvider.overrideWithValue(
-              authRepo,
-            ),
+            authRepositoryBootstrapProvider.overrideWithValue(
+              FakeAuthRepository(),
+            )
           ],
-          child: const MaterialApp(home: SignInScreen()),
+          child: const AppStartup(
+            child: SignInScreen(),
+          ),
         ),
       );
 

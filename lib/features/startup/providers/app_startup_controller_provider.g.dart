@@ -1,28 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dictionary_repository_provider.dart';
+part of 'app_startup_controller_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dictionaryRepositoryHash() =>
-    r'7ab72c48a4d0b61082a4ed13615585bae1b8c8f3';
+String _$appStartupControllerHash() =>
+    r'5a42440f8511b4acff12320425914ff1aa911f86';
 
-/// See also [dictionaryRepository].
-@ProviderFor(dictionaryRepository)
-final dictionaryRepositoryProvider =
-    AutoDisposeFutureProvider<DictionaryRepository>.internal(
-  dictionaryRepository,
-  name: r'dictionaryRepositoryProvider',
+/// See also [AppStartupController].
+@ProviderFor(AppStartupController)
+final appStartupControllerProvider =
+    AutoDisposeAsyncNotifierProvider<AppStartupController, void>.internal(
+  AppStartupController.new,
+  name: r'appStartupControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$dictionaryRepositoryHash,
+      : _$appStartupControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef DictionaryRepositoryRef
-    = AutoDisposeFutureProviderRef<DictionaryRepository>;
+typedef _$AppStartupController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

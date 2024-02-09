@@ -7,7 +7,7 @@ part of 'dictionary_definition_provider.dart';
 // **************************************************************************
 
 String _$dictionaryDefinitionHash() =>
-    r'aa527e9232ba488a5b53b0366b44479b654c948e';
+    r'473b69ee0d82670b094156aad9654e4cd0611bc7';
 
 /// See also [dictionaryDefinition].
 @ProviderFor(dictionaryDefinition)

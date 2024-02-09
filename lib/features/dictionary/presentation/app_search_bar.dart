@@ -69,7 +69,7 @@ class AppSearchBar extends HookConsumerWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
             onPressed: () {
-              ref.read(authRepositoryProvider).signOut();
+              ref.read(authRepositoryProvider).requireValue.signOut();
             },
             icon: const Icon(Icons.logout))
       ],

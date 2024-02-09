@@ -9,7 +9,7 @@ class DictionaryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var email = ref.read(authRepositoryProvider).getUser()?.email;
+    var email = ref.read(authRepositoryProvider).requireValue.getUser()?.email;
 
     return Scaffold(
       appBar: AppSearchBar('Dictionary. Welcome: [$email]'),
