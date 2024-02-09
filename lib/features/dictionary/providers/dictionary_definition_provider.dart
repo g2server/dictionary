@@ -1,3 +1,4 @@
+import 'package:dictionary/features/auth/providers/auth_state_provider.dart';
 import 'package:dictionary/features/dictionary/data/dictionary_repository.dart';
 import 'package:dictionary/features/dictionary/domain/word_definition.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
@@ -9,6 +10,7 @@ part 'dictionary_definition_provider.g.dart';
 @riverpod
 Future<WordDefinition?> dictionaryDefinition(
     DictionaryDefinitionRef ref) async {
+  ref.watch(authStateProvider);
   var searchText = ref.watch(dictionarySearchTextProvider);
   if (searchText.isEmpty) {
     return Future.value(null);

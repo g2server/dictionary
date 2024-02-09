@@ -17,11 +17,8 @@ void main() {
     (tester) async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      var dictionaryRepo = FakeDictionaryRepository();
-      await dictionaryRepo.init();
-
-      var authRepo = FakeAuthRepository();
-      await authRepo.init();
+      var dictionaryRepo = FakeDictionaryRepository()..init();
+      var authRepo = FakeAuthRepository()..init();
 
       await tester.pumpWidget(
         ProviderScope(
