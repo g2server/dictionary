@@ -14,7 +14,6 @@ class AuthSignInScreenController extends _$AuthSignInScreenController {
   Future<void> signIn(AppUser user) async {
     state = const AsyncLoading();
     final authRepository = ref.read(authRepositoryProvider);
-    await Future.delayed(const Duration(seconds: 1));
 
     try {
       var success = await authRepository.signIn(user);

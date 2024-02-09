@@ -45,9 +45,12 @@ class SignInScreen extends StatelessWidget {
                         child: const Text('Sign in anonymously'),
                       ),
                       Visibility(
-                          visible: data ==
-                              AuthSignInScreenControllerState.noUserFound,
-                          child: const Text('No user found, try again')),
+                        visible:
+                            data == AuthSignInScreenControllerState.noUserFound,
+                        child: const Text(
+                          'No user found, try again',
+                        ),
+                      ),
                     ],
                   );
                 }, error: (error, stackTrace) {

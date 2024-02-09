@@ -7,12 +7,13 @@ import 'package:dictionary/features/auth/providers/auth_repository_provider.dart
 import 'package:dictionary/features/dictionary/data/dictionaryapi/dictionaryapi_repository.dart';
 import 'package:dictionary/features/dictionary/data/fake_dictionary_repository.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
+import 'package:dictionary/shared/logging/basic_logger.dart';
 import 'package:dictionary/shared/logging/pretty_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-//var logger = BasicLogger();
-var logger = PrettyLogger();
+var logger = BasicLogger();
+//var logger = PrettyLogger();
 
 void main() async {
   runZonedGuarded(() async {
