@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:dictionary/app.dart';
 import 'package:dictionary/features/auth/data/fake_auth_repository.dart';
+import 'package:dictionary/features/auth/presentation/auth_screen.dart';
 import 'package:dictionary/features/auth/providers/auth_repository_bootstrap_provider.dart';
 import 'package:dictionary/features/dictionary/data/dictionaryapi/dictionaryapi_repository.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_bootstrap_provider.dart';
@@ -28,13 +28,15 @@ void main() {
     runApp(
       ProviderScope(
         overrides: [
-          dictionaryRepositoryBootstrapProvider
-              .overrideWithValue(DictionaryApiRepository()),
-          authRepositoryBootstrapProvider
-              .overrideWithValue(FakeAuthRepository()),
+          dictionaryRepositoryBootstrapProvider.overrideWithValue(
+            DictionaryApiRepository(),
+          ),
+          authRepositoryBootstrapProvider.overrideWithValue(
+            FakeAuthRepository(),
+          ),
         ],
         child: const AppStartup(
-          child: MyApp(),
+          child: AuthScreen(),
         ),
       ),
     );

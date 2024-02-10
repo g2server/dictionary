@@ -19,16 +19,5 @@ class AppStartupController extends _$AppStartupController {
     await Future.delayed(const Duration(seconds: 1));
     await ref.watch(dictionaryRepositoryProvider.future);
     await ref.watch(authRepositoryProvider.future);
-    //throw Exception('Error');
-  }
-}
-
-class MockLoadingAppStartupController extends _$AppStartupController
-    with Mock
-    implements AppStartupController {
-  @override
-  Future<void> build() async {
-    //state = const AsyncLoading();
-    //await Future.delayed(const Duration(seconds: 1));
   }
 }

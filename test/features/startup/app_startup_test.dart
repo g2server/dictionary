@@ -105,7 +105,6 @@ void main() {
     (tester) async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      WidgetsFlutterBinding.ensureInitialized();
       var appStartupController = AppStartupController();
 
       await tester.pumpWidget(
