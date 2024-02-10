@@ -8,5 +8,8 @@ part 'auth_repository_provider.g.dart';
 Future<AuthRepository> authRepository(AuthRepositoryRef ref) async {
   var provider = ref.watch(authRepositoryBootstrapProvider);
   await provider.init();
+  ref.onDispose(() {
+    provider.dispose();
+  });
   return provider;
 }

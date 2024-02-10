@@ -34,12 +34,12 @@ class SupabaseAuthRepository extends AuthRepository {
   @override
   Future<void> signOut() async {
     await _supabaseClient.auth.signOut();
-    //_authState.value = null;
     return Future.value(null);
   }
 
   @override
   void dispose() async {
+    await _supabaseClient.dispose();
     await _authState.close();
   }
 
