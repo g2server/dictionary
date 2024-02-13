@@ -8,6 +8,7 @@ import 'package:dictionary/features/startup/app_startup.dart';
 import 'package:dictionary/shared/logging/app_logger.dart';
 import 'package:dictionary/shared/logging/basic_logger.dart';
 import 'package:dictionary/shared/logging/pretty_logger.dart';
+import 'package:dictionary/shared/provider_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,6 +28,9 @@ void main() {
 
     runApp(
       ProviderScope(
+        observers: [
+          MyProviderObserver(),
+        ],
         overrides: [
           dictionaryRepositoryBootstrapProvider.overrideWithValue(
             DictionaryApiRepository(),
