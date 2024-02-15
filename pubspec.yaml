@@ -18,11 +18,11 @@ dependencies:
   rxdart: ^0.27.7
   logger: ^2.0.2+1
   http: ^1.2.0
-  flutter_dotenv: ^5.1.0
   supabase_flutter: ^2.3.2
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.4.10
   mocktail: ^1.0.3
+  envied: ^0.5.3
 
 dev_dependencies:
   flutter_test:
@@ -34,12 +34,10 @@ dev_dependencies:
   build_runner: ^2.4.8
   custom_lint: ^0.6.0
   riverpod_lint: ^2.3.9
+  envied_generator: ^0.5.3
 
 
 flutter:
-  assets:
-    - dotenv/
-
   uses-material-design: true
 
 

@@ -41,4 +41,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/dotenv/secrets.env
+env/prod.env
+lib/shared/env/prod_env.g.dart

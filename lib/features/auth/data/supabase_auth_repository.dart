@@ -1,7 +1,7 @@
 import 'package:dictionary/features/auth/data/auth_repository.dart';
 import 'package:dictionary/features/auth/domain/app_user.dart';
 import 'package:dictionary/main.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:dictionary/shared/env/prod_env.dart';
 import 'package:rxdart/src/subjects/behavior_subject.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -45,11 +45,8 @@ class SupabaseAuthRepository extends AuthRepository {
 
   @override
   Future<void> init() async {
-    await dotenv.load(fileName: "dotenv/secrets.env");
-    var superbaseUrl = dotenv.env['SUPABASE_URL'];
-    var superbaseApiKey = dotenv.env['SUPABASE_URL_API_KEY'];
     _supabaseClient = (await Supabase.initialize(
-            url: superbaseUrl!, anonKey: superbaseApiKey!))
+            url: ProdEnv.supabaseUrl, anonKey: ProdEnv.supabaseUrlApiKey))
         .client;
     logger.i('supabase initialized');
 
