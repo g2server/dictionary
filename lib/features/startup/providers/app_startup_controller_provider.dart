@@ -1,6 +1,5 @@
 import 'package:dictionary/features/auth/providers/auth_repository_provider.dart';
 import 'package:dictionary/features/dictionary/providers/dictionary_repository_provider.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_startup_controller_provider.g.dart';

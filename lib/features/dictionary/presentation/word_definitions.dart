@@ -21,13 +21,19 @@ class WordDefinitions extends ConsumerWidget {
                 child: Text('No results'),
               );
             } else {
-              return ListView.builder(
-                itemCount: value.meanings.length,
-                itemBuilder: (context, index) {
-                  return WordMeaningCard(
-                    wordMeaning: value.meanings[index],
-                  );
+              return RefreshIndicator(
+                onRefresh: () {
+                  ref.refresh(dictionaryDefinitionProvider.future);
+                  return Future<void>.value();
                 },
+                child: ListView.builder(
+                  itemCount: value.meanings.length,
+                  itemBuilder: (context, index) {
+                    return WordMeaningCard(
+                      wordMeaning: value.meanings[index],
+                    );
+                  },
+                ),
               );
             }
           },
