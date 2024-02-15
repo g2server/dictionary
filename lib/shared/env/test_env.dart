@@ -4,8 +4,8 @@ part 'test_env.g.dart';
 
 @Envied(path: 'env/test.env')
 abstract class TestEnv {
-  @EnviedField(varName: 'SUPABASE_URL')
-  static const String supabaseUrl = _TestEnv.supabaseUrl;
-  @EnviedField(varName: 'SUPABASE_URL_API_KEY')
-  static const String supabaseUrlApiKey = _TestEnv.supabaseUrlApiKey;
+  @EnviedField(varName: 'SUPABASE_URL', obfuscate: true)
+  static String supabaseUrl = _TestEnv.supabaseUrl;
+  @EnviedField(varName: 'SUPABASE_URL_API_KEY', obfuscate: true)
+  static String supabaseUrlApiKey = _TestEnv.supabaseUrlApiKey;
 }
