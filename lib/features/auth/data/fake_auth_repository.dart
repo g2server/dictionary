@@ -17,7 +17,7 @@ class FakeAuthRepository extends AuthRepository {
   @override
   Future<bool> signIn(AppUser user) async {
     logger.i('FakeAuthRepository, signIn()');
-    await Future.delayed(const Duration(milliseconds: 500));
+    //await Future.delayed(const Duration(milliseconds: 500));
     if (user.email == kAnonAppUserEmail &&
         user.password == kAnonAppUserPassword) {
       _authState.value = user;

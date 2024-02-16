@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
-import '../../../robots/auth_robot.dart';
+import '../test/robots/auth_robot.dart';
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets(
     'sign in screen test to check for no user found',
     (tester) async {
@@ -21,7 +23,7 @@ void main() {
   testWidgets(
     'sign in screen test to sign in with a registered user',
     (tester) async {
-      WidgetsFlutterBinding.ensureInitialized();
+      IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
       final r = AuthRobot(tester);
       await r.pumpAccountScreen();
