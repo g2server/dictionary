@@ -23,6 +23,7 @@ dependencies:
   hooks_riverpod: ^2.4.10
   mocktail: ^1.0.3
   envied: ^0.5.3
+  golden_toolkit: ^0.15.0
 
 dev_dependencies:
   flutter_test:
@@ -40,5 +41,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
+  
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf        
 

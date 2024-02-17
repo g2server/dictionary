@@ -13,11 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class AuthRobot {
-  AuthRobot(this.tester);
+class Robot {
+  Robot(this.tester);
   final WidgetTester tester;
 
-  Future<void> pumpAccountScreen() async {
+  Future<void> pumpMyApp() async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [

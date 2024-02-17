@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../robots/auth_robot.dart';
+import '../../../robot.dart';
 
 void main() {
   testWidgets(
@@ -9,8 +9,8 @@ void main() {
     (tester) async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      final r = AuthRobot(tester);
-      await r.pumpAccountScreen();
+      final r = Robot(tester);
+      await r.pumpMyApp();
       r.expectToFindSignInForm();
 
       await r.unregisteredUserSignin();
@@ -23,8 +23,8 @@ void main() {
     (tester) async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      final r = AuthRobot(tester);
-      await r.pumpAccountScreen();
+      final r = Robot(tester);
+      await r.pumpMyApp();
       r.expectToFindSignInForm();
 
       await r.tapSignInButton();
